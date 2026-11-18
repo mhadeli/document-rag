@@ -324,11 +324,11 @@ PDFs can be safely saved, retrieved, and deleted via `LocalFileStorage`.
 
 ### Tasks
 
-- [ ] Open PDF bytes/files using PyMuPDF (`fitz`).
-- [ ] Extract text page by page (1-indexed page numbers).
-- [ ] Normalize excessive whitespace and skip blank pages.
-- [ ] Handle corrupted or encrypted PDFs gracefully with clear exceptions.
-- [ ] Raise a clear validation error when a PDF contains no extractable text (e.g., scanned image-only PDF).
+- [x] Open PDF bytes/files using PyMuPDF (`fitz`).
+- [x] Extract text page by page (1-indexed page numbers).
+- [x] Normalize excessive whitespace and skip blank pages.
+- [x] Handle corrupted or encrypted PDFs gracefully with clear exceptions.
+- [x] Raise a clear validation error when a PDF contains no extractable text (e.g., scanned image-only PDF).
 
 ### Deliverable
 
