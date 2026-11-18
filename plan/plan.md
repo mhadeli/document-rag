@@ -466,13 +466,13 @@ An end-to-end RAG pipeline returning grounded answers and verified source citati
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| `GET` | `/health` | Health and DB connectivity check |
-| `POST` | `/documents/upload` | Upload and ingest a PDF file |
-| `POST` | `/documents/url` | Ingest a public webpage URL |
-| `GET` | `/documents` | List indexed documents |
-| `GET` | `/documents/{id}` | Get document details, chunk count, and status |
-| `DELETE` | `/documents/{id}` | Delete document, chunks, and stored file |
-| `POST` | `/chat` | Ask a question (supports `document_ids` and `history`) |
+| `GET` | `/health` | Health and DB connectivity check (`[x]`) |
+| `POST` | `/documents/upload` | Upload and ingest a PDF file (`[x]`) |
+| `POST` | `/documents/url` | Ingest a public webpage URL (`[x]`) |
+| `GET` | `/documents` | List indexed documents (`[x]`) |
+| `GET` | `/documents/{id}` | Get document details, chunk count, and status (`[x]`) |
+| `DELETE` | `/documents/{id}` | Delete document, chunks, and stored file (`[x]`) |
+| `POST` | `/chat` | Ask a question (supports `document_ids` and `history`) (`[x]`) |
 
 ### Example Chat Request
 
