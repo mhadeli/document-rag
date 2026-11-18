@@ -420,11 +420,11 @@ One cohesive ingestion service supporting both PDF uploads and website URLs.
 
 ### Tasks
 
-- [ ] Embed the query using `embed_query`.
-- [ ] Query `chunks` joined with `documents` using `Chunk.embedding.cosine_distance(query_vector)`.
-- [ ] Filter exclusively to `Document.status == "completed"`.
-- [ ] Support optional filtering by `document_ids`.
-- [ ] Return top-K chunks with similarity score (`1 - cosine_distance`), `chunk_id`, `document_id`, `filename`, `page_number`, `source_url`, and `content`.
+- [x] Embed the query using `embed_query`.
+- [x] Query `chunks` joined with `documents` using `Chunk.embedding.cosine_distance(query_vector)`.
+- [x] Filter exclusively to `Document.status == "completed"`.
+- [x] Support optional filtering by `document_ids`.
+- [x] Return top-K chunks with similarity score (`1 - cosine_distance`), `chunk_id`, `document_id`, `filename`, `page_number`, `source_url`, and `content`.
 
 ### Deliverable
 
