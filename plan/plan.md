@@ -501,10 +501,10 @@ A functioning FastAPI backend testable via `/docs`.
 
 ### Tasks
 
-- [ ] Sidebar for uploading PDFs and submitting website URLs.
-- [ ] Sidebar list of indexed documents with status badges, multi-select filter for scoped chat, and delete buttons.
-- [ ] Main chat interface using `st.chat_message` and `st.chat_input` with session history (`st.session_state`).
-- [ ] Expandable "Sources" section under each assistant answer showing filename, page number / URL, and the exact supporting text snippet.
+- [x] Sidebar for uploading PDFs and submitting website URLs.
+- [x] Sidebar list of indexed documents with status badges, multi-select filter for scoped chat, and delete buttons.
+- [x] Main chat interface using `st.chat_message` and `st.chat_input` with session history (`st.session_state`).
+- [x] Expandable "Sources" section under each assistant answer showing filename, page number / URL, and the exact supporting text snippet.
 
 ### Deliverable
 
