@@ -399,12 +399,12 @@ A working embedding service wrapping Gemini Embeddings.
 
 ### Pipeline Flow
 
-1. Validate input (PDF or URL) and compute SHA-256 `content_hash`.
-2. Check if an active document with the same `content_hash` already exists (deduplication).
-3. Create `Document` record with `status="processing"`.
-4. Extract text -> Chunk text -> Generate embeddings in batches.
-5. Insert `Chunk` records and update `Document` to `status="completed"` in a database transaction.
-6. On error, record `status="failed"` and `error_message` without leaving partial chunks behind.
+1. [x] Validate input (PDF or URL) and compute SHA-256 `content_hash`.
+2. [x] Check if an active document with the same `content_hash` already exists (deduplication).
+3. [x] Create `Document` record with `status="processing"`.
+4. [x] Extract text -> Chunk text -> Generate embeddings in batches.
+5. [x] Insert `Chunk` records and update `Document` to `status="completed"` in a database transaction.
+6. [x] On error, record `status="failed"` and `error_message` without leaving partial chunks behind.
 
 ### Deliverable
 
