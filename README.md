@@ -166,4 +166,4 @@ This project was built with an AI-assisted workflow. I used different AI tools f
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [MIT License](https://mit-license.org/).
