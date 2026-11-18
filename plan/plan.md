@@ -127,12 +127,12 @@
 
 ### Tasks
 
-- [ ] Initialize the repository and Python project using `uv`.
-- [ ] Create the project directory structure.
-- [ ] Configure Git and `.gitignore`.
-- [ ] Create `.env.example`.
-- [ ] Configure Ruff and pytest in `pyproject.toml`.
-- [ ] Create the initial `README.md`.
+- [x] Initialize the repository and Python project using `uv`.
+- [x] Create the project directory structure.
+- [x] Configure Git and `.gitignore`.
+- [x] Create `.env.example`.
+- [x] Configure Ruff and pytest in `pyproject.toml`.
+- [x] Create the initial `README.md`.
 
 ### Initial Dependencies
 
