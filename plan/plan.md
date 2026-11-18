@@ -248,11 +248,11 @@ document-rag/
 
 ### Tasks
 
-- [ ] Run PostgreSQL with `pgvector` (`pgvector/pgvector:pg16`) using Docker Compose.
-- [ ] Configure synchronous SQLAlchemy 2.0 `Engine` and `SessionLocal`.
-- [ ] Enable the `vector` PostgreSQL extension in the initial migration (`CREATE EXTENSION IF NOT EXISTS vector`).
-- [ ] Configure Alembic and generate the initial schema migration.
-- [ ] Verify database connectivity.
+- [x] Run PostgreSQL with `pgvector` (`pgvector/pgvector:pg16`) using Docker Compose.
+- [x] Configure synchronous SQLAlchemy 2.0 `Engine` and `SessionLocal`.
+- [x] Enable the `vector` PostgreSQL extension in the initial migration (`CREATE EXTENSION IF NOT EXISTS vector`).
+- [x] Configure Alembic and generate the initial schema migration.
+- [x] Verify database connectivity.
 
 ### Database Schema
 
