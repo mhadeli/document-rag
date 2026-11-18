@@ -16,7 +16,12 @@ COPY migrations ./migrations
 COPY scripts ./scripts
 COPY alembic.ini ./
 
-RUN mkdir -p /app/data/uploads
+RUN groupadd --gid 1000 app \
+    && useradd --uid 1000 --gid app --create-home --shell /usr/sbin/nologin app \
+    && mkdir -p /app/data/uploads \
+    && chown -R app:app /app/data
+
+USER app
 
 ENV PATH="/app/.venv/bin:$PATH" \
     PYTHONPATH="/app"

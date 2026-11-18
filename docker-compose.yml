@@ -8,7 +8,9 @@ services:
       POSTGRES_PASSWORD: rag
       POSTGRES_DB: ragdb
     ports:
-      - "5432:5432"
+      # Bound to localhost only: needed for local dev (README Option B),
+      # never exposed on external interfaces.
+      - "127.0.0.1:5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -21,10 +23,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    image: document-rag:latest
     container_name: document-rag-backend
-    restart: unless-stopped
+    # Bounded retries so a failing migration surfaces as a failed container
+    # instead of an endless restart loop.
+    restart: on-failure:5
     env_file:
-      - .env
+      - path: .env
+        required: false
     environment:
       DATABASE_URL: postgresql+psycopg://rag:rag@postgres:5432/ragdb
       UPLOAD_DIR: /app/data/uploads
@@ -35,14 +41,16 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
-    command: >
-      sh -c "alembic upgrade head &&
-             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    # Startup command comes from the Dockerfile CMD (migrations + uvicorn).
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=3)"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
 
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: document-rag:latest
     container_name: document-rag-frontend
     restart: unless-stopped
     environment:
@@ -50,7 +58,8 @@ services:
     ports:
       - "8501:8501"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
     command: >
       streamlit run frontend/streamlit_app.py
       --server.port=8501

@@ -52,9 +52,11 @@ FastAPI Backend (Port 8000)
 
 ## Quickstart (Option B — Local Development with `uv`)
 
-1. **Install dependencies:**
+1. **Install dependencies and configure `.env`:**
    ```bash
    uv sync
+   cp .env.example .env
+   # Add your GEMINI_API_KEY in .env
    ```
 
 2. **Start PostgreSQL with `pgvector` and run migrations:**
