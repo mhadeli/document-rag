@@ -8,9 +8,7 @@ Upload PDF documents or submit website URLs, index their contents into vector em
 
 ## Demo
 
-<video src="docs/demo.mp4" controls muted width="100%"></video>
-
-[▶ Watch the demo video](docs/demo.mp4): upload a PDF, index it, and ask grounded questions with page-level citations.
+https://github.com/user-attachments/assets/1dde5c5a-291c-4787-b496-78aca608d541
 
 ---
 
