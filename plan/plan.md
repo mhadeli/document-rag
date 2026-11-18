@@ -520,10 +520,10 @@ A working browser interface connected to FastAPI.
 
 ### Tasks
 
-- [ ] Unit tests for PDF extraction, website extraction (including SSRF checks), and text chunking.
-- [ ] Unit/integration tests for ingestion pipeline, retrieval filtering, and structured citation mapping.
-- [ ] API endpoint tests using `fastapi.testclient.TestClient`.
-- [ ] Optional live evaluation script (`scripts/evaluate_rag.py`) to test retrieval Recall@K and answer quality on a small Q&A dataset.
+- [x] Unit tests for PDF extraction, website extraction (including SSRF checks), and text chunking.
+- [x] Unit/integration tests for ingestion pipeline, retrieval filtering, and structured citation mapping.
+- [x] API endpoint tests using `fastapi.testclient.TestClient`.
+- [x] Optional live evaluation script (`scripts/evaluate_rag.py`) to test retrieval Recall@K and answer quality on a small Q&A dataset.
 
 ---
 
