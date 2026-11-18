@@ -288,9 +288,34 @@ def run_offline_benchmark() -> EvaluationSummary:
     return summary
 
 
-def main() -> None:
+def check_thresholds(
+    summary: EvaluationSummary,
+    *,
+    min_recall: float,
+    min_mrr: float,
+    min_keyword_coverage: float,
+    min_citation_accuracy: float,
+) -> list[str]:
+    checks = [
+        ("Recall@k", summary.recall_at_k, min_recall),
+        ("MRR", summary.mrr, min_mrr),
+        ("Keyword Coverage", summary.avg_keyword_coverage, min_keyword_coverage),
+        ("Citation Accuracy", summary.citation_accuracy, min_citation_accuracy),
+    ]
+    return [
+        f"{name} {value:.4f} is below threshold {threshold:.4f}"
+        for name, value, threshold in checks
+        if value < threshold
+    ]
+
+
+def main() -> int:
     parser = argparse.ArgumentParser(description="Evaluate RAG retrieval and generation metrics.")
-    parser.parse_args()
+    parser.add_argument("--min-recall", type=float, default=1.0)
+    parser.add_argument("--min-mrr", type=float, default=1.0)
+    parser.add_argument("--min-keyword-coverage", type=float, default=1.0)
+    parser.add_argument("--min-citation-accuracy", type=float, default=1.0)
+    args = parser.parse_args()
 
     summary = run_offline_benchmark()
     print("=== RAG Evaluation Summary ===")
@@ -301,6 +326,22 @@ def main() -> None:
     print(f"Citation Accuracy    : {summary.citation_accuracy:.2%}")
     print(f"Average Latency (ms) : {summary.avg_latency_ms:.2f}")
 
+    failures = check_thresholds(
+        summary,
+        min_recall=args.min_recall,
+        min_mrr=args.min_mrr,
+        min_keyword_coverage=args.min_keyword_coverage,
+        min_citation_accuracy=args.min_citation_accuracy,
+    )
+    if failures:
+        print("\n=== Evaluation FAILED ===")
+        for failure in failures:
+            print(f"- {failure}")
+        return 1
+
+    print("\nAll metrics meet thresholds.")
+    return 0
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
