@@ -382,10 +382,10 @@ Reusable chunking logic for both PDF and website content with unit tests.
 
 ### Tasks
 
-- [ ] Configure `GoogleGenerativeAIEmbeddings` from `langchain-google-genai` using `GEMINI_API_KEY` and `EMBEDDING_MODEL`.
-- [ ] Pass `output_dimensionality=settings.EMBEDDING_DIMENSIONS` (768) so vectors match `VECTOR(768)` in PostgreSQL.
-- [ ] Support batch embedding for document chunks (`embed_documents`) and single query embedding (`embed_query`).
-- [ ] Verify returned vector dimensions and handle transient API errors.
+- [x] Configure `GoogleGenerativeAIEmbeddings` from `langchain-google-genai` using `GEMINI_API_KEY` and `EMBEDDING_MODEL`.
+- [x] Pass `output_dimensionality=settings.EMBEDDING_DIMENSIONS` (768) so vectors match `VECTOR(768)` in PostgreSQL.
+- [x] Support batch embedding for document chunks (`embed_documents`) and single query embedding (`embed_query`).
+- [x] Verify returned vector dimensions and handle transient API errors.
 
 ### Deliverable
 
