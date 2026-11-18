@@ -303,12 +303,12 @@ PostgreSQL running locally with migrations, document records, and cascading chun
 
 ### Tasks
 
-- [ ] Create a `FileStorage` interface (`save`, `read`, `delete`) with a `LocalFileStorage` implementation.
-- [ ] Save files under `data/uploads/{uuid}.pdf`.
-- [ ] Enforce `MAX_UPLOAD_MB` file size limit.
-- [ ] Validate the `%PDF-` magic header rather than trusting file extensions alone.
-- [ ] Prevent path traversal when resolving storage keys.
-- [ ] Delete stored PDF files when a document is deleted.
+- [x] Create a `FileStorage` interface (`save`, `read`, `delete`) with a `LocalFileStorage` implementation.
+- [x] Save files under `data/uploads/{uuid}.pdf`.
+- [x] Enforce `MAX_UPLOAD_MB` file size limit.
+- [x] Validate the `%PDF-` magic header rather than trusting file extensions alone.
+- [x] Prevent path traversal when resolving storage keys.
+- [x] Delete stored PDF files when a document is deleted.
 
 ### Deliverable
 
