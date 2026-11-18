@@ -533,9 +533,9 @@ A working browser interface connected to FastAPI.
 
 ### Tasks
 
-- [ ] Create `Dockerfile` and `docker-compose.yml` (`pgvector/pgvector:pg16`, FastAPI backend, Streamlit frontend).
-- [ ] Run Alembic migrations automatically on backend startup.
-- [ ] Add GitHub Actions workflow (`.github/workflows/ci.yml`) running `ruff check` and `pytest`.
+- [x] Create `Dockerfile` and `docker-compose.yml` (`pgvector/pgvector:pg16`, FastAPI backend, Streamlit frontend).
+- [x] Run Alembic migrations automatically on backend startup.
+- [x] Add GitHub Actions workflow (`.github/workflows/ci.yml`) running `ruff check` and `pytest`.
 
 ### Deliverable
 
