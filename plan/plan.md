@@ -366,9 +366,9 @@ A website loader returning clean text, page title, and canonical URL.
 
 ### Tasks
 
-- [ ] Convert extracted PDF pages or website text into intermediate chunk dataclasses.
-- [ ] Preserve `page_number`, `source_url`, `filename`, and `source_type`.
-- [ ] Filter out empty or whitespace-only chunks.
+- [x] Convert extracted PDF pages or website text into intermediate chunk dataclasses.
+- [x] Preserve `page_number`, `source_url`, `filename`, and `source_type`.
+- [x] Filter out empty or whitespace-only chunks.
 
 ### Deliverable
 
