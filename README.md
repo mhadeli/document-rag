@@ -19,13 +19,34 @@ Upload PDF documents or submit website URLs, index their contents into vector em
 
 ## Architecture
 
-```text
-Streamlit UI (Port 8501)
-       |
-       v
-FastAPI Backend (Port 8000)
-  ├── Ingestion Pipeline: PDF/Web Loader -> Chunker -> Gemini Embeddings -> PostgreSQL/pgvector
-  └── Query Pipeline:     Query Rewrite -> Gemini Query Embedding -> pgvector Search -> Gemini Structured Answer
+```mermaid
+flowchart TD
+    User([User]) --> UI["Streamlit UI<br/>:8501"]
+    UI -->|REST| API["FastAPI Backend<br/>:8000"]
+
+    subgraph Ingestion["Ingestion Pipeline"]
+        direction TB
+        PDF["PDF Loader<br/>PyMuPDF"] --> Dedup{"SHA-256<br/>duplicate?"}
+        Web["Web Loader<br/>httpx + Trafilatura"] --> Dedup
+        Dedup -->|new| Chunk["Chunker<br/>RecursiveCharacterTextSplitter"]
+        Chunk --> Embed["Gemini Embeddings<br/>gemini-embedding-001"]
+    end
+
+    subgraph Query["Query Pipeline"]
+        direction TB
+        Rewrite["Query Rewrite<br/>uses chat history"] --> QEmbed["Gemini Query Embedding"]
+        QEmbed --> Search["pgvector Cosine Search<br/>HNSW, top-k"]
+        Search --> Gen["Gemini Structured Answer<br/>gemini-2.5-flash"]
+        Gen --> Cite["Map cited_chunk_ids<br/>to pages / URLs"]
+    end
+
+    API -->|"POST /documents/upload<br/>POST /documents/url"| Ingestion
+    API -->|"POST /chat"| Query
+
+    Embed --> DB[("PostgreSQL + pgvector")]
+    PDF -.->|stores original file| Files[("data/uploads")]
+    Search <--> DB
+    Cite -->|answer + citations| API
 ```
 
 ---
@@ -101,5 +122,26 @@ uv run ruff check .
 uv run pytest -v
 
 # Run the offline RAG evaluation benchmark (Recall@K, MRR, Citation Accuracy)
+# Exits non-zero if any metric falls below its threshold (see --help)
 uv run python -m scripts.evaluate_rag
 ```
+
+---
+
+## Limitations
+
+- **No authentication or multi-tenancy:** every user sees and can delete every indexed document. Don't expose the API publicly without adding auth.
+- **Synchronous ingestion:** PDFs and URLs are parsed and embedded inside the HTTP request, so large documents block the request until indexing finishes. There is no background job queue.
+- **No OCR:** scanned or image-only PDFs produce no extractable text.
+- **Static HTML only:** websites are fetched with `httpx`, so pages that render their content with JavaScript may index little or nothing.
+- **Vector-only retrieval:** there is no hybrid keyword (BM25) search and no reranking, so exact terms such as IDs or codes can be missed.
+- **Character-based chunking:** chunks are split by character count (`CHUNK_SIZE`, `CHUNK_OVERLAP`), not by document structure such as headings or tables.
+- **Local file storage:** uploaded PDFs are stored on local disk (`data/uploads`), which doesn't scale across multiple backend instances.
+- **Offline benchmark uses stubs:** `scripts/evaluate_rag.py` runs against a fixed in-memory dataset with stubbed embeddings and LLM. It catches pipeline regressions but doesn't measure real Gemini answer quality.
+- **External API dependency:** embeddings and answers depend on the Gemini API and are subject to its rate limits, cost, and availability.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
