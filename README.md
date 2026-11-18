@@ -128,6 +128,50 @@ uv run python -m scripts.evaluate_rag
 
 ---
 
+## How AI Was Used to Build This Project
+
+This project was built with an AI-assisted workflow. I used different AI tools for different phases and kept myself in the loop for the skeleton, step reviews, and final decisions.
+
+| Step | Phase | Done by |
+|---|---|---|
+| 1 | Define project scope and requirements | Gemini Argon (medium effort) |
+| 2 | Research new technologies and similar project implementations | Google Search, Perplexity |
+| 2.1 | Reason about and justify the architecture and tool choices | Fable |
+| 3 | Brainstorm ideas and draft an implementation plan | Gemini |
+| 4 | Finalize the implementation plan, then review it | Gemini (finalize), Claude Code with Opus 5.5, medium effort (review) |
+| 5 | Draft the project skeleton (structure, modules, interfaces) | Me |
+| 6 | Implement the project step by step, following the plan | Gemini Argon |
+| 7 | Review each implementation step before moving on | Me |
+| 8 | Final code review, unit tests, and evaluation | Claude Code |
+| 9 | Second code review, to see how the tool works and compare review quality | [Alibaba Open Code Review](https://github.com/alibaba/open-code-review) |
+| 10 | Apply review fixes: CI quality gate for the RAG benchmark, Docker healthchecks and startup order, non-root container, localhost-only database port | Claude Code, reviewed by me |
+| 11 | Documentation: architecture flow diagram, limitations, license | Claude Code, reviewed by me |
+
+### Tools Used
+
+**AI tools**
+
+| Tool | Used for |
+|---|---|
+| Gemini (Argon) | Requirements, brainstorming, planning, and step-by-step implementation |
+| Fable | Reasoning about architecture and tool choices |
+| Claude Code (Opus 5.5) | Plan review, final code review, tests, review fixes, and documentation |
+| Google Search, Perplexity | Researching technologies and similar RAG implementations |
+| Alibaba Open Code Review | An independent second code review |
+
+**Development stack**
+
+| Tool | Used for |
+|---|---|
+| `uv` | Python dependency and environment management |
+| Ruff | Linting |
+| pytest | Unit and API integration tests |
+| Docker, Docker Compose | Running PostgreSQL + `pgvector`, the backend, and the frontend |
+| GitHub Actions | CI: lint, tests, and the RAG evaluation gate |
+| Alembic | Database migrations |
+
+---
+
 ## Limitations
 
 - **No authentication or multi-tenancy:** every user sees and can delete every indexed document. Don't expose the API publicly without adding auth.
