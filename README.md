@@ -147,28 +147,6 @@ This project was built with an AI-assisted workflow. I used different AI tools f
 | 10 | Apply review fixes: CI quality gate for the RAG benchmark, Docker healthchecks and startup order, non-root container, localhost-only database port | Claude Code, reviewed by me |
 | 11 | Documentation: architecture flow diagram, limitations, license | Claude Code, reviewed by me |
 
-### Tools Used
-
-**AI tools**
-
-| Tool | Used for |
-|---|---|
-| Gemini (Argon) | Requirements, brainstorming, planning, and step-by-step implementation |
-| Fable | Reasoning about architecture and tool choices |
-| Claude Code (Opus 5.5) | Plan review, final code review, tests, review fixes, and documentation |
-| Google Search, Perplexity | Researching technologies and similar RAG implementations |
-| Alibaba Open Code Review | An independent second code review |
-
-**Development stack**
-
-| Tool | Used for |
-|---|---|
-| `uv` | Python dependency and environment management |
-| Ruff | Linting |
-| pytest | Unit and API integration tests |
-| Docker, Docker Compose | Running PostgreSQL + `pgvector`, the backend, and the frontend |
-| GitHub Actions | CI: lint, tests, and the RAG evaluation gate |
-| Alembic | Database migrations |
 
 ---
 
