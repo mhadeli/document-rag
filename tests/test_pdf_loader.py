@@ -73,3 +73,8 @@ def test_reject_empty_text_pdf() -> None:
     blank_pdf = _build_pdf_bytes(["", "   \n\t  "])
     with pytest.raises(EmptyPDFContentError, match="No extractable text found"):
         extract_pdf_from_bytes(blank_pdf, filename="scanned.pdf")
+
+
+def test_normalize_text_strips_nul_and_control_chars() -> None:
+    raw = "λ\x00(ℓ) = x\x01\x1f\x7f\tok\nnext"
+    assert normalize_text(raw) == "λ(ℓ) = x ok\nnext"

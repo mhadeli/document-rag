@@ -12,6 +12,18 @@ class BackendAPIError(Exception):
     """Raised when the FastAPI backend returns an error or is unreachable."""
 
 
+def _error_detail(res: requests.Response) -> str:
+    """Extract an error message from a backend response, even if it isn't JSON."""
+    try:
+        body = res.json()
+    except ValueError:
+        body = None
+    if isinstance(body, dict) and body.get("detail"):
+        return str(body["detail"])
+    text = (res.text or "").strip()
+    return f"HTTP {res.status_code}: {text or res.reason or 'Unknown error'}"
+
+
 def format_source_label(source: dict[str, Any]) -> str:
     filename = source.get("filename", "Unknown Source")
     page_number = source.get("page_number")
@@ -46,7 +58,7 @@ def upload_pdf_to_api(
             timeout=REQUEST_TIMEOUT,
         )
         if res.status_code >= 400:
-            detail = res.json().get("detail", res.text)
+            detail = _error_detail(res)
             raise BackendAPIError(f"Upload failed: {detail}")
         return dict(res.json())
     except requests.RequestException as exc:
@@ -64,7 +76,7 @@ def ingest_url_to_api(
             timeout=REQUEST_TIMEOUT,
         )
         if res.status_code >= 400:
-            detail = res.json().get("detail", res.text)
+            detail = _error_detail(res)
             raise BackendAPIError(f"URL ingestion failed: {detail}")
         return dict(res.json())
     except requests.RequestException as exc:
@@ -78,7 +90,7 @@ def delete_document_from_api(
     try:
         res = requests.delete(f"{api_base_url}/documents/{document_id}", timeout=15)
         if res.status_code >= 400:
-            detail = res.json().get("detail", res.text)
+            detail = _error_detail(res)
             raise BackendAPIError(f"Delete failed: {detail}")
         return bool(res.json().get("deleted", False))
     except requests.RequestException as exc:
@@ -106,7 +118,7 @@ def ask_question_to_api(
             timeout=REQUEST_TIMEOUT,
         )
         if res.status_code >= 400:
-            detail = res.json().get("detail", res.text)
+            detail = _error_detail(res)
             raise BackendAPIError(f"Chat request failed: {detail}")
         return dict(res.json())
     except requests.RequestException as exc:

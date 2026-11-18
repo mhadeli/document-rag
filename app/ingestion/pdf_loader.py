@@ -30,8 +30,14 @@ class ExtractedPDF:
     source_type: str = "pdf"
 
 
+# NUL and other C0/DEL control chars (except \t and \n). PDFs with math/symbol fonts
+# often extract with these, and PostgreSQL text columns reject NUL (0x00) bytes.
+_CONTROL_CHARS_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+
+
 def normalize_text(text: str) -> str:
     text = text.replace("\r\n", "\n").replace("\r", "\n")
+    text = _CONTROL_CHARS_RE.sub("", text)
     text = re.sub(r"[ \t]+", " ", text)
     text = re.sub(r" *\n *", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)

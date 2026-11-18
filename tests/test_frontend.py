@@ -2,6 +2,7 @@ from typing import Any
 from unittest.mock import MagicMock, patch
 
 import pytest
+import requests
 
 from frontend.streamlit_app import (
     BackendAPIError,
@@ -86,3 +87,15 @@ def test_delete_document_and_error_handling(mock_delete: MagicMock) -> None:
     mock_delete.return_value = err_res
     with pytest.raises(BackendAPIError, match="Document not found"):
         delete_document_from_api("missing-id", "http://localhost:8000")
+
+
+def test_upload_non_json_error_reports_server_error() -> None:
+    err_res = MagicMock()
+    err_res.status_code = 500
+    err_res.reason = "Internal Server Error"
+    err_res.text = "Internal Server Error"
+    err_res.json.side_effect = requests.exceptions.JSONDecodeError("Expecting value", "", 0)
+
+    with patch("frontend.streamlit_app.requests.post", return_value=err_res):
+        with pytest.raises(BackendAPIError, match=r"Upload failed: HTTP 500"):
+            upload_pdf_to_api("doc.pdf", b"%PDF-1.4")

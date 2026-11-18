@@ -6,6 +6,14 @@ Upload PDF documents or submit website URLs, index their contents into vector em
 
 ---
 
+## Demo
+
+<video src="docs/demo.mp4" controls muted width="100%"></video>
+
+[▶ Watch the demo video](docs/demo.mp4): upload a PDF, index it, and ask grounded questions with page-level citations.
+
+---
+
 ## Core Features
 
 - **PDF Ingestion (`PyMuPDF`):** Page-by-page extraction preserving 1-indexed page numbers, with `%PDF-` header validation, file size limits, and path traversal protection.
