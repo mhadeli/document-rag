@@ -1,4 +1,4 @@
-# Document Intelligence RAG
+# Document Intelligence RAG (Retrieval-Augmented Generation)
 
 A production-minded Retrieval-Augmented Generation (RAG) application built with **FastAPI**, **PostgreSQL (`pgvector`)**, **Google Gemini**, and **Streamlit**.
 
