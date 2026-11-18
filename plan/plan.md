@@ -342,11 +342,11 @@ A PDF loader returning structured page objects (`page_number`, `content`) and do
 
 ### Tasks
 
-- [ ] Validate URL syntax and require `http` or `https` scheme.
-- [ ] Resolve hostname and block private, loopback, and link-local IP addresses to prevent SSRF.
-- [ ] Fetch HTML using `httpx` with strict timeouts and response size limits.
-- [ ] Extract main readable text and metadata (title, canonical URL) using `trafilatura`.
-- [ ] Raise a clear error if the page is unreachable or yields no extractable text.
+- [x] Validate URL syntax and require `http` or `https` scheme.
+- [x] Resolve hostname and block private, loopback, and link-local IP addresses to prevent SSRF.
+- [x] Fetch HTML using `httpx` with strict timeouts and response size limits.
+- [x] Extract main readable text and metadata (title, canonical URL) using `trafilatura`.
+- [x] Raise a clear error if the page is unreachable or yields no extractable text.
 
 ### Deliverable
 
